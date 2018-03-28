@@ -117,8 +117,12 @@ namespace CodeGuise.Cookies
         public String ReadCookieProperty(string name, string property)
         {
             var cookie = Read(name);
-            var propertyValue = cookie.Where(kv => kv.Key.Equals(property)).Select(kv => kv.Value).FirstOrDefault();
-            return propertyValue;
+            if (cookie != null)
+            {
+                var propertyValue = cookie.Where(kv => kv.Key.Equals(property)).Select(kv => kv.Value).FirstOrDefault();
+                return propertyValue;
+            }
+            return null;
         }
 
         public void Update(string name, IDictionary<string, string> keys, bool secure = false, bool accessibleClientSide = false, bool cacheInResponseToMultipleClients = false)
